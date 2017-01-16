@@ -1,7 +1,7 @@
 {
   "name": "vision-vue-loader",
-  "version": "0.1.0",
-  "description": "Vision component with Vue.js loader for Webpack.",
+  "version": "0.1.1",
+  "description": "Vue.js component loader for Webpack",
   "main": "index.js",
   "repository": {
     "type": "git",
@@ -16,7 +16,7 @@
     "index.js",
     "lib"
   ],
-  "author": "Rainfore <rainforest92@126.com>",
+  "author": "Sjoerd Visscher",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/vison-app/vision-vue-loader/issues"
@@ -40,11 +40,11 @@
     "source-map": "^0.5.6",
     "vue-hot-reload-api": "^2.0.1",
     "vue-style-loader": "^1.0.0",
+    "vue-template-compiler": "^2.0.0",
     "vue-template-es2015-compiler": "^1.2.2"
   },
   "peerDependencies": {
-    "css-loader": "*",
-    "vue-template-compiler": "^2.0.0"
+    "css-loader": "*"
   },
   "devDependencies": {
     "babel-core": "^6.8.0",
