@@ -20,7 +20,7 @@ Under the hood, the text content inside the `<style>` tag will be first compiled
 
 #### sass-loader caveat
 
-Contrary to what its name indicates, [*sass*-loader](https://github.com/jtangelder/sass-loader) parses *SCSS* syntax by default. If you actually want to use the indented *SASS* syntax, you have to configure vuel-loader's options for sass-loader accordingly. 
+Contrary to what its name indicates, [*sass*-loader](https://github.com/jtangelder/sass-loader) parses *SCSS* syntax by default. If you actually want to use the indented *SASS* syntax, you have to configure vue-loader's options for sass-loader accordingly. 
 
 ```javascript
 {
@@ -28,7 +28,7 @@ Contrary to what its name indicates, [*sass*-loader](https://github.com/jtangeld
   loader: 'vue-loader',
   options: {
     loaders: {
-      scss: 'vue-style-loader!css-loader!sass-loader' // <style lang="scss">
+      scss: 'vue-style-loader!css-loader!sass-loader', // <style lang="scss">
       sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax' // <style lang="sass">
     }
   }
