@@ -1,11 +1,11 @@
 {
-  "name": "vision-vue-loader",
+  "name": "vusion-vue-loader",
   "version": "0.2.0",
   "description": "Vue single-file component loader for Webpack",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vison-app/vision-vue-loader.git"
+    "url": "https://github.com/vusion/vusion-vue-loader.git"
   },
   "keywords": [
     "vue",
@@ -19,9 +19,9 @@
   "author": "Evan You",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/vison-app/vision-vue-loader/issues"
+    "url": "https://github.com/vusion/vusion-vue-loader/issues"
   },
-  "homepage": "https://github.com/vison-app/vision-vue-loader",
+  "homepage": "https://github.com/vusion/vusion-vue-loader",
   "scripts": {
     "lint": "eslint lib",
     "test": "eslint lib && mocha --slow 5000 --timeout 10000",

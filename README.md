@@ -1,15 +1,15 @@
-# vision-vue-loader
+# vusion-vue-loader
 
 <!-- [![Build Status](https://circleci.com/gh/vuejs/vue-loader/tree/master.svg?style=shield)](https://circleci.com/gh/vuejs/vue-loader/tree/master) [![npm package](https://img.shields.io/npm/v/vue-loader.svg?maxAge=2592000)](https://www.npmjs.com/package/vue-loader) -->
 
-> This is a fork of [vue-loader](https://github.com/vuejs/vue-loader) with some modifications for handling Vision Components.
+> This is a fork of [vue-loader](https://github.com/vuejs/vue-loader) with some modifications for handling Vusion Components.
 
 ## Modifications
 
-- Removed `_[index]` in `query.localIdentName` to make different `<style>` tags in same situation;
-- Add babelOptions;
-- Add import-global-loader;
-- Add style insert by id;
+- Remove `_[index]` in `query.localIdentName` to make different `<style>` tags in same situation.
+- Add babelOptions.
+- Add import-global-loader.
+- Add style insert by id.
 
 ## Origins
 # vue-loader
