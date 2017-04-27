@@ -6,10 +6,9 @@
 
 ## Modifications
 
-- Remove `_[index]` in `query.localIdentName` to make different `<style>` tags in same situation.
-- Add babelOptions.
-- Add import-global-loader.
-- Add style insert by id.
+- Remove `_[index]` in `query.localIdentName` to make different `<style>` tags in same situation
+- Add import-global-loader
+- Assign super style keys when having the same name as the super
 
 ## Origins
 # vue-loader
