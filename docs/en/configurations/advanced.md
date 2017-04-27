@@ -1,6 +1,6 @@
 # Advanced Loader Configuration
 
-Sometimes the you may want to:
+Sometimes you may want to:
 
 1. Apply a custom loader string to a language instead of letting `vue-loader` infer it;
 
@@ -48,7 +48,10 @@ module.exports = {
           //   plugin will be a better option.
           postLoaders: {
             html: 'babel-loader'
-          }
+          },
+          
+          // `excludedPreLoaders` should be regex
+          excludedPreLoaders: /(eslint-loader)/
         }
       }
     ]
