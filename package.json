@@ -1,6 +1,7 @@
 {
   "name": "vusion-vue-loader",
   "version": "12.0.5",
+  "version": "12.2.1",
   "description": "Vue single-file component loader for Webpack",
   "main": "index.js",
   "repository": {
@@ -57,8 +58,7 @@
     "coffee-script": "^1.10.0",
     "css-loader": "^0.26.0",
     "eslint": "^3.14.1",
-    "eslint-config-vue": "^2.0.2",
-    "eslint-plugin-vue": "^2.0.0",
+    "eslint-plugin-vue-libs": "^1.2.0",
     "expose-loader": "^0.7.1",
     "extract-text-webpack-plugin": "^2.0.0-rc.0",
     "file-loader": "^0.10.0",
@@ -79,9 +79,9 @@
     "stylus-loader": "^2.0.0",
     "sugarss": "^0.2.0",
     "url-loader": "^0.5.7",
-    "vue": "^2.3.0-beta.1",
-    "vue-server-renderer": "^2.3.0-beta.1",
-    "vue-template-compiler": "^2.3.0-beta.1",
+    "vue": "^2.3.2",
+    "vue-server-renderer": "^2.3.2",
+    "vue-template-compiler": "^2.3.2",
     "webpack": "^2.2.0"
   }
 }
