@@ -1,6 +1,6 @@
 {
   "name": "vusion-vue-loader",
-  "version": "13.1.2",
+  "version": "13.2.1",
   "description": "Vue single-file component loader for Webpack",
   "main": "index.js",
   "repository": {
@@ -31,7 +31,7 @@
   "dependencies": {
     "consolidate": "^0.14.0",
     "hash-sum": "^1.0.2",
-    "js-beautify": "^1.6.3",
+    "js-beautify": "~1.6.3",
     "loader-utils": "^1.1.0",
     "lru-cache": "^4.0.1",
     "postcss": "^6.0.1",
