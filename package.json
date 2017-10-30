@@ -1,6 +1,6 @@
 {
   "name": "vusion-vue-loader",
-  "version": "14.0.0",
+  "version": "14.0.2",
   "description": "Vue single-file component loader for Webpack",
   "main": "index.js",
   "repository": {
@@ -45,9 +45,7 @@
   },
   "peerDependencies": {
     "css-loader": "*",
-    "vue-template-compiler": "^2.0.0",
-    "import-global-loader": "*",
-    "icon-font-loader": "*"
+    "vue-template-compiler": "^2.0.0"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
