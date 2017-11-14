@@ -1,6 +1,6 @@
 # PostCSS
 
-`vue-loader`により処理されたCSSのアウトプットはスコープされたCSSにに書き換えるために[PostCSS](https://github.com/postcss/postcss) を通します。カスタムされた PostCSSプラグインをプロセスに追加することが出来ます。例えば、[autoprefixer](https://github.com/postcss/autoprefixer) や [CSSNext](http://cssnext.io/)があります。
+`vue-loader`により処理されたCSSのアウトプットはスコープされたCSSに書き換えるために[PostCSS](https://github.com/postcss/postcss) を通します。カスタムされた PostCSSプラグインをプロセスに追加することが出来ます。例えば、[autoprefixer](https://github.com/postcss/autoprefixer) や [CSSNext](http://cssnext.io/)があります。
 
 ## 設定ファイルの使用
 
@@ -16,7 +16,7 @@
 
 あるいは、 `vue-loader` の `postcss` オプションを使用して `*.vue` ファイル用の postcss の設定を指定することが出来ます。
 
-Webpack 1.x の例:
+webpack 1.x の例:
 
 ``` js
 // webpack.config.js
@@ -29,7 +29,7 @@ module.exports = {
 }
 ```
 
-Webpack 2.x の例:
+webpack 2.x の例:
 
 ``` js
 // webpack.config.js

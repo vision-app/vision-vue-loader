@@ -41,7 +41,7 @@ comp-a h2 {
 #### webpack.config.js
 
 ``` js
-// Webpack 2.x
+// webpack 2.x
 var ExtractTextPlugin = require("extract-text-webpack-plugin")
 
 module.exports = {
@@ -49,7 +49,7 @@ module.exports = {
     rules: [
       {
         test: /\.vue$/,
-        loader: 'vue',
+        loader: 'vue-loader',
         options: {
           loaders: {
             // 全ての <docs> の内容は raw text として展開されます
@@ -70,7 +70,7 @@ module.exports = {
 
 `<docs>`カスタムブロックをコンポーネントに注入して実行時に利用できるようにする例です。
 
-#### docs-loader.js 
+#### docs-loader.js
 
 カスタムブロックコンテンツを注入するためには、カスタム loader が必要です:
 
@@ -94,7 +94,7 @@ module.exports = {
     rules: [
       {
         test: /\.vue$/,
-        loader: 'vue',
+        loader: 'vue-loader',
         options: {
           loaders: {
             'docs': docsLoader

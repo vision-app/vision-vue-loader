@@ -16,7 +16,7 @@ Using a config file allows you to share the same config between your normal CSS 
 
 Alternatively, you can specify postcss config specifically for `*.vue` files using the `postcss` option for `vue-loader`.
 
-Example usage in Webpack 1.x:
+Example usage in webpack 1.x:
 
 ``` js
 // webpack.config.js
@@ -29,7 +29,7 @@ module.exports = {
 }
 ```
 
-For Webpack 2.x:
+For webpack 2.x:
 
 ``` js
 // webpack.config.js
@@ -62,7 +62,7 @@ In addition to providing an Array of plugins, the `postcss` option also accepts:
   postcss: {
     plugins: [...], // list of plugins
     options: {
-      parser: sugarss // use sugarss parser
+      parser: 'sugarss' // use sugarss parser
     }
   }
   ```
