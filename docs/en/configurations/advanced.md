@@ -18,15 +18,15 @@ To do that, specify the `loaders` option for `vue-loader`:
 module.exports = {
   // other options...
   module: {
-    // module.rules is the same as module.loaders in 1.x
+    // `module.rules` is the same as `module.loaders` in 1.x
     rules: [
       {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: {
           // `loaders` will overwrite the default loaders.
-          // The following config will cause all <script> tags without "lang"
-          // attribute to be loaded with coffee-loader
+          // The following config will cause all `<script>` tags without `lang`
+          // attribute to be loaded with `coffee-loader`
           loaders: {
             js: 'coffee-loader'
           },
@@ -43,8 +43,8 @@ module.exports = {
           // - For `html`, the result returned by the default loader
           //   will be compiled JavaScript render function code.
           //
-          // - For `css`, the result will be returned by vue-style-loader
-          //   which isn't particularly useful in most cases. Using a postcss
+          // - For `css`, the result will be returned by `vue-style-loader`
+          //   which isn't particularly useful in most cases. Using a PostCSS
           //   plugin will be a better option.
           postLoaders: {
             html: 'babel-loader'
@@ -73,7 +73,7 @@ module.exports = {
       }
     ]
   },
-  // vue-loader configurations
+  // `vue-loader` configurations
   vue: {
     loaders: {
       // same configuration rules as above

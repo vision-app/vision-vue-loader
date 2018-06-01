@@ -39,7 +39,7 @@ function genId (file) {
   return hash(path.join('test', 'fixtures', file))
 }
 
-function bundle (options, cb) {
+function bundle (options, cb, wontThrowError) {
   const vueOptions = options.vue
   delete options.vue
   const config = Object.assign({}, globalConfig, options)
@@ -54,41 +54,41 @@ function bundle (options, cb) {
   const webpackCompiler = webpack(config)
   webpackCompiler.outputFileSystem = mfs
   webpackCompiler.run((err, stats) => {
-    expect(err).to.be.null
-    if (stats.compilation.errors.length) {
-      stats.compilation.errors.forEach((err) => {
-        console.error(err.message)
-      })
+    const errors = stats.compilation.errors
+    if (!wontThrowError) {
+      expect(err).to.be.null
+      if (errors && errors.length) {
+        errors.forEach(error => {
+          console.error(error.message)
+        })
+      }
+      expect(errors).to.be.empty
     }
-    if (stats.compilation.errors) {
-      stats.compilation.errors.forEach(err => {
-        console.error(err.message)
-      })
-    }
-    expect(stats.compilation.errors).to.be.empty
-    cb(mfs.readFileSync('/test.build.js').toString(), stats.compilation.warnings)
+    cb(mfs.readFileSync('/test.build.js').toString(), stats, err)
   })
 }
 
-function test (options, assert) {
-  bundle(options, (code, warnings) => {
+function test (options, assert, wontThrowError) {
+  bundle(options, (code, stats, err) => {
     jsdom.env({
       html: '<!DOCTYPE html><html><head></head><body></body></html>',
       src: [code],
-      done: (err, window) => {
-        if (err) {
-          console.log(err[0].data.error.stack)
-          expect(err).to.be.null
+      done: (errors, window) => {
+        if (errors) {
+          console.log(errors[0].data.error.stack)
+          if (!wontThrowError) {
+            expect(errors).to.be.null
+          }
         }
         const module = interopDefault(window.vueModule)
         const instance = {}
         if (module && module.beforeCreate) {
           module.beforeCreate.forEach(hook => hook.call(instance))
         }
-        assert(window, module, window.vueModule, instance)
+        assert(window, module, window.vueModule, instance, errors, { stats, err })
       }
     })
-  })
+  }, wontThrowError)
 }
 
 function mockRender (options, data = {}) {
@@ -211,6 +211,7 @@ describe('vue-loader', () => {
       // scoped keyframes
       expect(style).to.contain(`.anim[${id}] {\n  animation: color-${id} 5s infinite, other 5s;`)
       expect(style).to.contain(`.anim-2[${id}] {\n  animation-name: color-${id}`)
+      expect(style).to.contain(`.anim-3[${id}] {\n  animation: 5s color-${id} infinite, 5s other;`)
       expect(style).to.contain(`@keyframes color-${id} {`)
       expect(style).to.contain(`@-webkit-keyframes color-${id} {`)
 
@@ -444,11 +445,14 @@ describe('vue-loader', () => {
       const dataURL = vnode.children[0].data.attrs.src
 
       // image tag with srcset
-      expect(vnode.children[4].data.attrs.srcset).to.equal(dataURL + ' 2x')
-      // image tag with srcset with two candidates
-      expect(vnode.children[6].data.attrs.srcset).to.equal(dataURL + ' 2x, ' + dataURL + ' 3x')
+      expect(vnode.children[4].data.attrs.srcset).to.equal(dataURL)
+      expect(vnode.children[6].data.attrs.srcset).to.equal(dataURL + ' 2x')
       // image tag with multiline srcset
-      expect(vnode.children[8].data.attrs.srcset).to.equal(dataURL + ' 2x, ' + dataURL + ' 3x')
+      expect(vnode.children[8].data.attrs.srcset).to.equal(dataURL + ', ' + dataURL + ' 2x')
+      expect(vnode.children[10].data.attrs.srcset).to.equal(dataURL + ' 2x, ' + dataURL)
+      expect(vnode.children[12].data.attrs.srcset).to.equal(dataURL + ' 2x, ' + dataURL + ' 3x')
+      expect(vnode.children[14].data.attrs.srcset).to.equal(dataURL + ', ' + dataURL + ' 2x, ' + dataURL + ' 3x')
+      expect(vnode.children[16].data.attrs.srcset).to.equal(dataURL + ' 2x, ' + dataURL + ' 3x')
 
       // style
       expect(includeDataURL(style)).to.equal(true)
@@ -503,6 +507,33 @@ describe('vue-loader', () => {
       style = normalizeNewline(style)
       expect(style).to.contain('h1 {\n  color: red;\n  font-size: 14px\n}')
       fs.unlinkSync('test/.postcssrc')
+      done()
+    })
+  })
+
+  it('load postcss config file with js syntax error', done => {
+    fs.writeFileSync('.postcssrc.js', 'module.exports = { hello }')
+    test({
+      entry: './test/fixtures/basic.vue'
+    }, (window, module, vueModule, instance, jsdomErr, webpackInfo) => {
+      const { stats: { compilation: { warnings, errors }}, err } = webpackInfo
+      expect(jsdomErr).to.be.null
+      expect(err).to.be.null
+      expect(warnings).to.be.empty
+      expect(errors.length).to.equal(1)
+      expect(errors[0].message).match(/^Error loading PostCSS config\:/)
+      fs.unlinkSync('.postcssrc.js')
+      done()
+    }, true)
+  })
+
+  it('postcss lang', done => {
+    test({
+      entry: './test/fixtures/postcss-lang.vue'
+    }, (window) => {
+      let style = window.document.querySelector('style').textContent
+      style = normalizeNewline(style)
+      expect(style).to.contain('h1 {\n  color: red;\n  font-size: 14px\n}')
       done()
     })
   })
@@ -778,6 +809,21 @@ describe('vue-loader', () => {
     })
   })
 
+  it('custom blocks with ES module default export', done => {
+    test({
+      entry: './test/fixtures/custom-blocks.vue',
+      vue: {
+        loaders: {
+          esm: require.resolve('./mock-loaders/identity')
+        }
+      }
+    }, (window, module) => {
+      // option added by custom block code
+      expect(module.foo).to.equal(1)
+      done()
+    })
+  })
+
   it('passes attributes as options to the loader', done => {
     bundle({
       entry: './test/fixtures/custom-options.vue',
@@ -968,30 +1014,6 @@ describe('vue-loader', () => {
     })
   })
 
-  it('cacheBusting: false', done => {
-    test({
-      entry: './test/fixtures/basic.vue',
-      vue: {
-        cacheBusting: false
-      }
-    }, (window, module, rawModule) => {
-      const vnode = mockRender(module, {
-        msg: 'hi'
-      })
-
-      // <h2 class="red">{{msg}}</h2>
-      expect(vnode.tag).to.equal('h2')
-      expect(vnode.data.staticClass).to.equal('red')
-      expect(vnode.children[0].text).to.equal('hi')
-
-      expect(module.data().msg).to.contain('Hello from Component A!')
-      let style = window.document.querySelector('style').textContent
-      style = normalizeNewline(style)
-      expect(style).to.contain('comp-a h2 {\n  color: #f00;\n}')
-      done()
-    })
-  })
-
   it('functional template', done => {
     test({
       entry: './test/fixtures/functional-root.vue',
@@ -1053,6 +1075,16 @@ describe('vue-loader', () => {
       }
     }, (code) => {
       expect(code).not.to.contains('require("vue-hot-reload-api")')
+      done()
+    })
+  })
+
+  it('named exports', done => {
+    test({
+      entry: './test/fixtures/named-exports.vue'
+    }, (window, _, rawModule) => {
+      expect(rawModule.default.name).to.equal('named-exports')
+      expect(rawModule.foo()).to.equal(1)
       done()
     })
   })

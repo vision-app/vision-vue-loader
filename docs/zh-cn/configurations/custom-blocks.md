@@ -42,7 +42,7 @@ comp-a h2 {
 #### webpack.config.js
 
 ``` js
-// Webpack 2.x
+// webpack 2.x
 var ExtractTextPlugin = require("extract-text-webpack-plugin")
 
 module.exports = {
@@ -68,6 +68,8 @@ module.exports = {
 ```
 
 ## 运行时可用的文档
+
+> 在 11.3.0+ 中支持
 
 这里有一个向组件注入 `<docs>` 自定义块使其在运行时可用的例子。
 

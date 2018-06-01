@@ -4,7 +4,7 @@ Any CSS output processed by `vue-loader` is piped through [PostCSS](https://gith
 
 ## Using a Config File
 
-Starting in 11.0 `vue-loader` supports auto-loading the same PostCss config files supported by [`postcss-loader`](https://github.com/postcss/postcss-loader#usage):
+`vue-loader` supports auto-loading the same PostCss config files supported by [`postcss-loader`](https://github.com/postcss/postcss-loader#usage):
 
 - `postcss.config.js`
 - `.postcssrc`
@@ -12,9 +12,20 @@ Starting in 11.0 `vue-loader` supports auto-loading the same PostCss config file
 
 Using a config file allows you to share the same config between your normal CSS files processed by `postcss-loader` and the CSS inside `*.vue` files, and is recommended.
 
+## Using with `postcss-loader`
+
+Since `vue-loader` handles PostCSS on its styles internally, you only need to apply `postcss-loader` to standalone CSS files. There's no need to specify `lang="postcss"` on a style block if there is a PostCSS config file in your project.
+
+Sometimes the user may want to use `lang="postcss"` only for syntax highlighting purposes. Starting in 13.6.0, if no loader has been explicitly configured for the following common PostCSS extensions (via `vue-loader`'s own `loaders` option), they will simply go through `vue-loader`'s default PostCSS transforms:
+
+- `postcss`
+- `pcss`
+- `sugarss`
+- `sss`
+
 ## Inline Options
 
-Alternatively, you can specify postcss config specifically for `*.vue` files using the `postcss` option for `vue-loader`.
+Alternatively, you can specify PostCSS config specifically for `*.vue` files using the `postcss` option for `vue-loader`.
 
 Example usage in webpack 1.x:
 
@@ -23,7 +34,7 @@ Example usage in webpack 1.x:
 module.exports = {
   // other configs...
   vue: {
-    // use custom postcss plugins
+    // use custom PostCSS plugins
     postcss: [require('postcss-cssnext')()]
   }
 }
@@ -36,12 +47,12 @@ For webpack 2.x:
 module.exports = {
   // other options...
   module: {
-    // module.rules is the same as module.loaders in 1.x
+    // `module.rules` is the same as `module.loaders` in 1.x
     rules: [
       {
         test: /\.vue$/,
         loader: 'vue-loader',
-        // vue-loader options goes here
+        // `vue-loader` options goes here
         options: {
           // ...
           postcss: [require('postcss-cssnext')()]
@@ -66,3 +77,17 @@ In addition to providing an Array of plugins, the `postcss` option also accepts:
     }
   }
   ```
+
+### Disabling Auto Config File Loading
+
+In `13.6.0+`, auto PostCSS config file loading can be disabled by specifying `postcss.useConfigFile: false`:
+
+``` js
+postcss: {
+  useConfigFile: false,
+  plugins: [/* ... */],
+  options: {/* ... */}
+}
+```
+
+This allows the PostCSS configuration inside `*.vue` files to be entirely controlled by the inline config.

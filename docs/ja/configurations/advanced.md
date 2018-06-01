@@ -16,15 +16,15 @@
 module.exports = {
   // 他のオプション
   module: {
-    // module.rules は 1.x での module.loaders と同じです
+    // `module.rules` は 1.x での `module.loaders` と同じです
     rules: [
       {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: {
           // `loaders` はデフォルトの loaderを上書きします。
-          // 次の設定では、"lang" 属性のない全ての <script> タグに
-          // coffee-loader が適用されます。
+          // 次の設定では、`lang` 属性のない全ての `<script>` タグに
+          // `coffee-loader` が適用されます。
           loaders: {
             js: 'coffee-loader'
           },
@@ -41,9 +41,9 @@ module.exports = {
           // - `html` の場合、デフォルトの loader によって返される結果は、
           //   コンパイルされた JavaScript レンダリング関数コードになります。
           //
-          // - `css` の場合、結果は vue-style-loader によって返されます。
+          // - `css` の場合、結果は `vue-style-loader` によって返されます。
           //   しかしこれはほとんどの場合特に有用ではありません。
-          //   postcss プラグインを使用する方が良い選択になります。
+          //   PostCSS プラグインを使用する方が良い選択になります。
           postLoaders: {
             html: 'babel-loader'
           },
@@ -71,7 +71,7 @@ module.exports = {
       }
     ]
   },
-  // vue-loader の設定
+  // `vue-loader` の設定
   vue: {
     loaders: {
       // 上記の設定と同じ

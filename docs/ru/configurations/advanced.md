@@ -18,15 +18,15 @@
 module.exports = {
   // другие настройки...
   module: {
-    // module.rules тоже самое, что и module.loaders в 1.x
+    // `module.rules` тоже самое, что и `module.loaders` в 1.x
     rules: [
       {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: {
           // указанные `loaders` переопределят загрузчики используемые по умолчанию
-          // Конфигурация ниже будет обрабатывать все теги <script> без атрибута "lang"
-          // с помощью coffee-loader
+          // Конфигурация ниже будет обрабатывать все теги `<script>` без атрибута `lang`
+          // с помощью `coffee-loader`
           loaders: {
             js: 'coffee-loader'
           },
@@ -43,7 +43,7 @@ module.exports = {
           // - Для `html`, результат возвращаемый стандартным загрузчиком
           //   будет скомпилированный в JavaScript код render-функции.
           //
-          // - Для `css`, результат возвращаемый из vue-style-loader
+          // - Для `css`, результат возвращаемый из `vue-style-loader`
           //   что не является особенно полезным в большинстве случаев.
           //   Использование postcss-плагина будет лучшим вариантом.
           postLoaders: {

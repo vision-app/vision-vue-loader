@@ -1,8 +1,8 @@
 # 选项参考
 
-## Webpack 1 和 2 之间的使用差异
+## webpack 1 和 2 之间的使用差异
 
-Webpack 2：配置直接放到 loader rule 中。
+webpack 2：配置直接放到 loader rule 中。
 
 ``` js
 module.exports = {
@@ -13,7 +13,7 @@ module.exports = {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: {
-          // vue-loader options
+          // `vue-loader` options
         }
       }
     ]
@@ -21,13 +21,13 @@ module.exports = {
 }
 ```
 
-Webpack 1.x：在 Webpack 配置中添加根节点 `vue` 块。
+webpack 1.x：在 webpack 配置中添加根节点 `vue` 块。
 
 ``` js
 module.exports = {
   // ...
   vue: {
-    // vue-loader options
+    // `vue-loader` options
   }
 }
 ```
@@ -36,7 +36,7 @@ module.exports = {
 
 - 类型：`{ [lang: string]: string }`
 
-  指定 Webpack loader 对象覆盖用于 `*.vue` 文件内的语言块的默认 loader。如果指定，该键对应于语言块的 `lang` 属性。每种类型的默认 `lang` 是：
+  指定 webpack loader 对象覆盖用于 `*.vue` 文件内的语言块的默认 loader。如果指定，该键对应于语言块的 `lang` 属性。每种类型的默认 `lang` 是：
 
   - `<template>`: `html`
   - `<script>`: `js`
@@ -45,7 +45,7 @@ module.exports = {
   例如，使用 `babel-loader` 和 `eslint-loader` 处理所有的 `<script>` 块：
 
   ``` js
-  // Webpack 2.x config
+  // webpack 2.x config
   module: {
     rules: [
       {
@@ -77,7 +77,7 @@ module.exports = {
 
   - 对于 `html`，默认 loader 返回结果会被编译为 JavaScript 渲染函数。
 
-  - 对于 `css`，由`vue-style-loader` 返回的结果通常不太有用。使用 postcss 插件将会是更好的选择。
+  - 对于 `css`，由`vue-style-loader` 返回的结果通常不太有用。使用 PostCSS 插件将会是更好的选择。
 
 ### postcss
 
@@ -138,6 +138,15 @@ module.exports = {
 
     向 PostCSS 插件提供上下文。详见 [postcss-loader 文档](https://github.com/postcss/postcss-loader#context-ctx)。
 
+### postcss.useConfigFile
+
+> 13.6.0 新增
+
+- 类型：`boolean`
+- 默认值：`true`
+
+  设为 `false` 之后可以禁止自动加载 PostCSS 配置文件。
+
 ### cssSourceMap
 
 - 类型: `Boolean`
@@ -145,7 +154,7 @@ module.exports = {
 
   是否开启 CSS 的 source maps，关闭可以避免 `css-loader` 的 some relative path related bugs 同时可以加快构建速度。
 
-  注意，这个值会在 Webpack 配置中没有 `devtool` 的情况下自动设置为 `false`。
+  注意，这个值会在 webpack 配置中没有 `devtool` 的情况下自动设置为 `false`。
 
 ### esModule
 
@@ -182,7 +191,7 @@ module.exports = {
 - 类型: `{ [tag: string]: string | Array<string> }`
 - 默认值: `{ img: 'src', image: 'xlink:href' }`
 
-  在模版编译过程中，编译器可以将某些属性，如 `src` 路径，转换为 `require` 调用，以便目标资源可以由 Webpack 处理。默认配置会转换 `<img>` 标签上的 `src` 属性和 SVG 的 `<image>` 标签上的 `xlink：href` 属性。
+  在模版编译过程中，编译器可以将某些属性，如 `src` 路径，转换为 `require` 调用，以便目标资源可以由 webpack 处理。默认配置会转换 `<img>` 标签上的 `src` 属性和 SVG 的 `<image>` 标签上的 `xlink：href` 属性。
 
 ### buble
 
@@ -298,11 +307,13 @@ module.exports = {
 
 开启 Vue 2.4 服务端渲染的编译优化之后，渲染函数将会把返回的 vdom 树的一部分编译为字符串，以提升服务端渲染的性能。在一些情况下，你可能想要明确的将其关掉，因为该渲染函数只能用于服务端渲染，而不能用于客户端渲染或测试环境。
 
-### cacheBusting
+### hotReload
 
-> 13.2.0 新增
+> 13.5.0 新增
 
-- 类型：`boolean`
-- 默认值：在开发环境下是 `true`，在生产环境下是 `false`。
+- 类型: `boolean`
+- 默认值: 在开发环境下是 `true`，在生产环境下或 webpack 配置中有 `target: 'node'` 的时候是 `false`。
+- 允许的值: `false` (`true` 会强制热重载，即便是生产环境或 `target: 'node'` 时)
 
-是否通过给文件名后加哈希查询值来避免生成的 source map 被缓存。关掉这一选项有益于 source map 调试。
+是否使用 webpack 的[模块热替换](https://webpack.js.org/concepts/hot-module-replacement/)在浏览器中应用变更而**不重载整个页面**。
+用这个选项 (值设为 `false`) 在开发环境下关闭热重载特性。

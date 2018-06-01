@@ -14,7 +14,7 @@
 
 ## 인라인 옵션
 
-또는 `vue-loader`에 `postcss` 옵션을 사용해 `*.vue`파일을 위해 postcss 설정을 지정할 수 있습니다.
+또는 `vue-loader`에 `postcss` 옵션을 사용해 `*.vue`파일을 위해 PostCSS 설정을 지정할 수 있습니다.
 
 webpack 1버전 예제:
 
@@ -23,7 +23,7 @@ webpack 1버전 예제:
 module.exports = {
   // 기타 설정...
   vue: {
-    // 사용자 정의 postcss 플러그인 사용
+    // 사용자 정의 PostCSS 플러그인 사용
     postcss: [require('postcss-cssnext')()]
   }
 }
@@ -36,12 +36,12 @@ webpack 2버전 예제:
 module.exports = {
   // 기타 설정...
   module: {
-    // module.rules는 1.x의 module.loaders와 동일
+    // `module.rules`는 1.x의 module.loaders와 동일
     rules: [
       {
         test: /\.vue$/,
         loader: 'vue-loader',
-        // vue-loader 옵션은 여기에 지정합니다
+        // `vue-loader` 옵션은 여기에 지정합니다
         options: {
           // ...
           postcss: [require('postcss-cssnext')()]
