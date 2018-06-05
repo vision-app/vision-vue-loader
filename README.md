@@ -1,4 +1,4 @@
-# vusion-vue-loader
+# @vusion/vue-loader
 
 <!-- [![Build Status](https://circleci.com/gh/vuejs/vue-loader/tree/master.svg?style=shield)](https://circleci.com/gh/vuejs/vue-loader/tree/master) [![npm package](https://img.shields.io/npm/v/vue-loader.svg?maxAge=2592000)](https://www.npmjs.com/package/vue-loader) -->
 

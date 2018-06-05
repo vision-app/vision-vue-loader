@@ -1,11 +1,11 @@
 {
   "name": "@vusion/vue-loader",
-  "version": "14.2.0",
+  "version": "14.2.1",
   "description": "Vue single-file component loader for Webpack",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vusion/vusion-vue-loader.git"
+    "url": "https://github.com/vusion/vue-loader.git"
   },
   "keywords": [
     "vue",
@@ -19,9 +19,9 @@
   "author": "Evan You",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/vusion/vusion-vue-loader/issues"
+    "url": "https://github.com/vusion/vue-loader/issues"
   },
-  "homepage": "https://github.com/vusion/vusion-vue-loader",
+  "homepage": "https://github.com/vusion/vue-loader",
   "scripts": {
     "lint": "eslint lib test",
     "lint:fix": "eslint lib test --fix",
