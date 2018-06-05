@@ -1,5 +1,5 @@
 {
-  "name": "vusion-vue-loader",
+  "name": "@vusion/vue-loader",
   "version": "14.2.0",
   "description": "Vue single-file component loader for Webpack",
   "main": "index.js",
